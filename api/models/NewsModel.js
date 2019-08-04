@@ -21,6 +21,11 @@ var ModelSchema = new Schema({
 	imgSrc: {
         type: String
     },
+    images: {
+        type: [{
+            type: String
+        }]
+    },
 	linkExterno: {
         type: String
     },    

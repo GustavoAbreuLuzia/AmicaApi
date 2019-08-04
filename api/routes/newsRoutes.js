@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-  var News = require('../controllers/newsController');
+  var News = require('../controllers/NewsController');
 
   // news Routes
   app.route('/news')

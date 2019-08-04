@@ -6,7 +6,9 @@ mongoose = require('mongoose'),
 bodyParser = require('body-parser');
 
 // Load model at mongoose
-News = require('./api/models/newsModel');
+Pet = require('./api/models/AdoptModel');
+News = require('./api/models/NewsModel');
+Contact = require('./api/models/ContactModel');
 
 // Mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -17,8 +19,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //Add routes from API
-var routes = require('./api/routes/newsRoutes');
-routes(app); 
+var routesPet = require('./api/routes/AdoptRoutes');
+routesPet(app);
+
+var routesNews = require('./api/routes/NewsRoutes');
+routesNews(app); 
+
+var routesContact = require('./api/routes/ContactRoutes');
+routesContact(app);
 
 // If not find any other route
 app.use(function(req, res) {
