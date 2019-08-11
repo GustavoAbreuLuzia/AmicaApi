@@ -9,6 +9,8 @@ bodyParser = require('body-parser');
 Pet = require('./api/models/AdoptModel');
 News = require('./api/models/NewsModel');
 Contact = require('./api/models/ContactModel');
+Partner = require('./api/models/PartnerModel');
+Company = require('./api/models/CompanyModel');
 
 // Mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -27,6 +29,13 @@ routesNews(app);
 
 var routesContact = require('./api/routes/ContactRoutes');
 routesContact(app);
+
+var routesPartner = require('./api/routes/PartnerRoutes');
+routesPartner(app);
+
+
+var routesCompany = require('./api/routes/CompanyRoutes');
+routesCompany(app);
 
 // If not find any other route
 app.use(function(req, res) {
