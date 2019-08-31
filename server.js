@@ -1,4 +1,7 @@
+require('dotenv').config();
+
 var express = require('express'),
+cookieParser = require('cookie-parser'),
 cors = require('cors'),
 app = express(),
 port = process.env.PORT || 3000,
@@ -11,6 +14,7 @@ News = require('./api/models/NewsModel');
 Contact = require('./api/models/ContactModel');
 Partner = require('./api/models/PartnerModel');
 Company = require('./api/models/CompanyModel');
+User = require('./api/models/UserModel');
 
 // Mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -18,6 +22,7 @@ mongoose.connect('mongodb://localhost/Tododb', { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser(process.env.COOKIEKEY));
 app.use(cors());
 
 //Add routes from API
@@ -33,9 +38,11 @@ routesContact(app);
 var routesPartner = require('./api/routes/PartnerRoutes');
 routesPartner(app);
 
-
 var routesCompany = require('./api/routes/CompanyRoutes');
 routesCompany(app);
+
+var routesAdmin = require('./api/routes/UserRoutes');
+routesAdmin(app);
 
 // If not find any other route
 app.use(function(req, res) {
