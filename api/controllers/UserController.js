@@ -80,16 +80,24 @@ exports.login_user = function(req, res) {
       else {
         const options = {
           httpOnly: true,
-          signed: true,
+          signed: true
         };
 
         const jwt = require('jsonwebtoken');
         const token = jwt.sign({ user: user[0].userLogin, auth: true }, process.env.API_KEY, { expiresIn: '2h' });
 
-        res.cookie('token', token, options).status(200).json({token: token});
+        res.cookie('token', token, options).status(200).send("success");
       }
   });
 };
+
+exports.check_login = function(req, res) {
+  const login = Security.login_admin(req, res);
+  if(login.auth){
+    res.status(200).send(login);
+  }
+}
+
 
 exports.logout_admin = function(req, res) {
   res.clearCookie('token').end();

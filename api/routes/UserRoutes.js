@@ -10,6 +10,9 @@ module.exports = function(app) {
   app.route('/usersAdmin/login')
     .post(User.login_user);
 
+  app.route('/usersAdmin/login/check')
+    .get(User.check_login);    
+
   app.route('/usersAdmin/login/logout')
     .delete(User.logout_admin);
 

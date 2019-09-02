@@ -2,6 +2,7 @@
 
 exports.login_admin = function(req, res) {
     var jwt = require('jsonwebtoken');
+    
     var token = req.signedCookies.token;
     if (!token) {
         var auth = { auth: false, message: 'No token provided.' };

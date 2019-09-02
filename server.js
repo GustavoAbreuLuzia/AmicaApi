@@ -23,7 +23,12 @@ mongoose.connect('mongodb://localhost/Tododb', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIEKEY));
-app.use(cors());
+
+var corsOptions = {
+  origin: process.env.URL,
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 //Add routes from API
 var routesPet = require('./api/routes/AdoptRoutes');
