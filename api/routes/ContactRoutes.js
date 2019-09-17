@@ -4,5 +4,6 @@ module.exports = function(app) {
 
   // Contacts Routes
   app.route('/contact')
+    .get(Contacts.list_contact)
     .post(Contacts.create_contact);
 };

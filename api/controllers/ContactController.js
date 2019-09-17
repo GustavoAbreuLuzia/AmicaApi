@@ -4,6 +4,15 @@ const nodemailer = require("nodemailer");
 var mongoose = require('mongoose'),
 Contact = mongoose.model('Contact');
 
+exports.list_contact = function(req, res) {
+  var query = Contact.find({}, null, {limit: parseInt(req.query.quantity), sort: {'Created_Date': -1}});
+  query.exec(function(err, contact) {
+      if (err)
+          res.send(err);
+      res.json(contact);
+  });
+};
+
 exports.create_contact = function(req, res) {
     var contactToAdd = new Contact(req.body);
 
@@ -32,3 +41,4 @@ exports.create_contact = function(req, res) {
         res.json(contact);
     });
 };
+
