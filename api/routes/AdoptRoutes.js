@@ -11,4 +11,7 @@ module.exports = function(app) {
     .get(Pet.find_pet)
     .put(Pet.update_pet)
     .delete(Pet.delete_pet);
+
+  app.route('/adopt/admin/upload')
+    .post(Pet.upload_picture);
 };

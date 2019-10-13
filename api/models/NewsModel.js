@@ -31,6 +31,10 @@ var ModelSchema = new Schema({
     },    
 	hasLink: {
         type: Boolean
+    },
+    status: {
+        type: Boolean,
+        default: true
     },  
 	Created_Date: {
         type: Date,

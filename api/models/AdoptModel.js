@@ -26,6 +26,10 @@ var AdoptSchema = new Schema({
             enum: ['Cão', 'Gato']
         }
     },
+    status: {
+        type: Boolean,
+        default: true
+    },
 	Created_Date: {
         type: Date,
         default: Date.now

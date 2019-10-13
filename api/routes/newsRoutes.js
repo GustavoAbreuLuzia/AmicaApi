@@ -11,4 +11,7 @@ module.exports = function(app) {
     .get(News.find_news)
     .put(News.update_news)
     .delete(News.delete_news);
+
+  app.route('/news/admin/upload')
+    .post(News.upload_picture);
 };
