@@ -8,7 +8,7 @@ exports.list_users = function(req, res) {
     const login = Security.login_admin(req, res);
 
     if(login.auth) {
-      var query = User.find({}, null, {sort: {'Created_Date': -1}});
+      var query = User.find({status: true}, null, {sort: {'Created_Date': -1}});
       query.exec(function(err, user) {
           if (err)
               res.send(err);

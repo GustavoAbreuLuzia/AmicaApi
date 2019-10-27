@@ -7,8 +7,11 @@ module.exports = function(app) {
     .get(Company.list_companies)
     .post(Company.create_company);
 
-  app.route('/adopt/:petId')
+  app.route('/company/:companyId')
     .get(Company.find_company)
     .put(Company.update_company)
     .delete(Company.delete_company);
+
+  app.route('/company/admin/upload')
+    .post(Company.upload_picture);
 };
