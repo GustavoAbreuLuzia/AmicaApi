@@ -1,0 +1,18 @@
+{
+  "main.css": "/Amica/static/css/main.54eea6a0.chunk.css",
+  "main.js": "/Amica/static/js/main.d43e4485.chunk.js",
+  "main.js.map": "/Amica/static/js/main.d43e4485.chunk.js.map",
+  "runtime~main.js": "/Amica/static/js/runtime~main.4c0c97fa.js",
+  "runtime~main.js.map": "/Amica/static/js/runtime~main.4c0c97fa.js.map",
+  "static/js/2.d34caebb.chunk.js": "/Amica/static/js/2.d34caebb.chunk.js",
+  "static/js/2.d34caebb.chunk.js.map": "/Amica/static/js/2.d34caebb.chunk.js.map",
+  "index.html": "/Amica/index.html",
+  "precache-manifest.cda47bb44be2b59d830d96410332b9a1.js": "/Amica/precache-manifest.cda47bb44be2b59d830d96410332b9a1.js",
+  "service-worker.js": "/Amica/service-worker.js",
+  "static/css/main.54eea6a0.chunk.css.map": "/Amica/static/css/main.54eea6a0.chunk.css.map",
+  "static/media/Admin.jpg": "/Amica/static/media/Admin.3a43812c.jpg",
+  "static/media/catDog.svg": "/Amica/static/media/catDog.3aa74fb8.svg",
+  "static/media/header.jpg": "/Amica/static/media/header.87d8537e.jpg",
+  "static/media/headerMobile.jpg": "/Amica/static/media/headerMobile.7a8c34ac.jpg",
+  "static/media/logoTransparent.png": "/Amica/static/media/logoTransparent.dab20e14.png"
+}

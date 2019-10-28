@@ -49,6 +49,11 @@ routesCompany(app);
 var routesAdmin = require('./api/routes/UserRoutes');
 routesAdmin(app);
 
+app.use(express.static('client/build'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+
 // If not find any other route
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
