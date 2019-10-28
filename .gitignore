@@ -8,6 +8,7 @@
 
 # production
 /build
+/client
 
 # Node Modules
 /node_modules
