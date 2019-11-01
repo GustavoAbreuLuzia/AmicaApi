@@ -6,7 +6,8 @@ cors = require('cors'),
 app = express(),
 port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
-bodyParser = require('body-parser');
+bodyParser = require('body-parser'),
+path = require('path');
 
 // Load model at mongoose
 Pet = require('./api/models/AdoptModel');
