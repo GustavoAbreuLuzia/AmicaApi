@@ -2,7 +2,7 @@
 module.exports = function(app) {
   var News = require('../controllers/NewsController');
 
-  // news Routes
+  // News Routes
   app.route('/news')
     .get(News.list_news)
     .post(News.create_news);
