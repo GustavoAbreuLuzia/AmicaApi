@@ -3,20 +3,20 @@ module.exports = function(app) {
   var User = require('../controllers/UserController');
 
   // user Routes
-  app.route('/usersAdmin')
+  app.route('/api/usersAdmin')
     .get(User.list_users)
     .post(User.create_user);
 
-  app.route('/usersAdmin/login')
+  app.route('/api/usersAdmin/login')
     .post(User.login_user);
 
-  app.route('/usersAdmin/login/check')
+  app.route('/api/usersAdmin/login/check')
     .get(User.check_login);    
 
-  app.route('/usersAdmin/login/logout')
+  app.route('/api/usersAdmin/login/logout')
     .delete(User.logout_admin);
 
-  app.route('/usersAdmin/:userId')
+  app.route('/api/usersAdmin/:userId')
     .get(User.find_user)
     .put(User.update_user)
     .delete(User.delete_user);
