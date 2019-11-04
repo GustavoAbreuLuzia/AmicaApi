@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 const nodemailer = require("nodemailer");
 
 var mongoose = require('mongoose'),
@@ -20,18 +21,18 @@ exports.create_partner = function(req, res) {
             res.send(err);
 
         let transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 587,
+          host: process.env.SMTP_HOST,
+          port: process.env.SMTP_PORT,
           secure: false, // true for 465, false for other ports
           auth: {
-            user: "gustavo.abreuluzia@gmail.com", // generated ethereal user
-            pass: "homukqrvrezhgpnm" // generated ethereal password
+            user: process.env.USER_MAIL, // generated ethereal user
+            pass: process.env.PASS_MAIL // generated ethereal password
           }
         });
 
         let info = await transporter.sendMail({
-          from: '"Amica 🐶" <AssociacaoAmica@hotmail.com>', // sender address
-          to: "gustavo.abreuluzia@gmail.com", //"AssociacaoAmica@hotmail.com", // list of receivers
+          from: `"${process.env.FROM_NAME}" <${process.env.FROM_MAIL}>`, // sender address
+          to: process.env.TO_MAIL, // list of receivers
           subject: `Há um novo Sócio!`, // Subject line
           text: `Nome: ${partner.name}, 
           Documento: ${partner.document}, 
