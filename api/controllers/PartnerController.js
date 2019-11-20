@@ -1,17 +1,21 @@
 'use strict';
 require('dotenv').config();
-const nodemailer = require("nodemailer");
-
-var mongoose = require('mongoose'),
-Partner = mongoose.model('Partner');
+const nodemailer = require("nodemailer"),
+mongoose = require('mongoose'),
+Partner = mongoose.model('Partner'),
+Security = require('../security/security');
 
 exports.list_partners = function(req, res) {
+  const login = Security.login_admin(req, res);
+
+  if(login.auth) {
     var query = Partner.find({}, null, {sort: {'Created_Date': -1}});
     query.exec(function(err, partner) {
         if (err)
             res.send(err);
         res.json(partner);
     });
+  }
 };
 
 exports.create_partner = function(req, res) {
@@ -59,27 +63,39 @@ exports.create_partner = function(req, res) {
 };
 
 exports.find_partner = function(req, res) {
+  const login = Security.login_admin(req, res);
+
+  if(login.auth) {
   Partner.findById(req.params.partnerId, function(err, partner) {
         if (err)
             res.send(err);
         res.json(partner);
     });
+  }
 };
 
 exports.update_partner = function(req, res) {
-  Partner.findOneAndUpdate({_id: req.params.partnerId}, req.body, {new: true, useFindAndModify: false}, function(err, partner) {
-    if (err)
-      res.send(err);
-    res.json(partner);
-  });
+  const login = Security.login_admin(req, res);
+
+  if(login.auth) {
+    Partner.findOneAndUpdate({_id: req.params.partnerId}, req.body, {new: true, useFindAndModify: false}, function(err, partner) {
+      if (err)
+        res.send(err);
+      res.json(partner);
+    });
+  }
 };
 
 exports.delete_partner = function(req, res) {
-  Partner.remove({
-    _id: req.params.partnerId
-  }, function(err, partner) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Partner successfully deleted' });
-  });
+  const login = Security.login_admin(req, res);
+
+  if(login.auth) {
+    Partner.remove({
+      _id: req.params.partnerId
+    }, function(err, partner) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'Partner successfully deleted' });
+    });
+  }
 };

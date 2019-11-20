@@ -1,17 +1,21 @@
 'use strict';
 require('dotenv').config();
-const nodemailer = require("nodemailer");
-
-var mongoose = require('mongoose'),
-Contact = mongoose.model('Contact');
+const nodemailer = require("nodemailer"),
+mongoose = require('mongoose'),
+Contact = mongoose.model('Contact'),
+Security = require('../security/security');
 
 exports.list_contact = function(req, res) {
-  var query = Contact.find({}, null, {limit: parseInt(req.query.quantity), sort: {'Created_Date': -1}});
-  query.exec(function(err, contact) {
-      if (err)
-          res.send(err);
-      res.json(contact);
-  });
+  const login = Security.login_admin(req, res);
+
+  if(login.auth) {
+    var query = Contact.find({}, null, {limit: parseInt(req.query.quantity), sort: {'Created_Date': -1}});
+    query.exec(function(err, contact) {
+        if (err)
+            res.send(err);
+        res.json(contact);
+    });
+  }
 };
 
 exports.create_contact = function(req, res) {
