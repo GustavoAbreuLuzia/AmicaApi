@@ -19,7 +19,7 @@ User = require('./api/models/UserModel');
 
 // Mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb', { useNewUrlParser: true }); 
+mongoose.connect('mongodb://localhost/Tododb', { useNewUrlParser: true, useUnifiedTopology: true }); 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
