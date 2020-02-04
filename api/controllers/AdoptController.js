@@ -75,13 +75,14 @@ exports.upload_picture = function(req, res) {
 
     const upload = multer({
       storage: storage
-    }).single("image");
+    }).array("image");
 
     upload(req, res, (err) => {
       if(err)
         res.send(err);
       else {
-        res.json({ filename: req.file.filename });
+        const filesName = req.files.map(file => file.filename);
+        res.json({ filesName: filesName });
       }
     });
   }
