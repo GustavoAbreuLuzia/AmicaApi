@@ -21,10 +21,7 @@ var AdoptSchema = new Schema({
         }]
     },
     petType: {
-        type: {
-            type: String,
-            enum: ['Cão', 'Gato']
-        }
+        type: String
     },
     status: {
         type: Boolean,
