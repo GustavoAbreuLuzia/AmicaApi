@@ -7,7 +7,16 @@ app = express(),
 port = process.env.PORT || 3000,
 mongoose = require('mongoose'),
 bodyParser = require('body-parser'),
-path = require('path');
+path = require('path'),
+https = require('https'),
+fs = require('fs'),
+pathClient = process.env.PATHCLIENT;
+
+const options = {
+  cert: fs.readFileSync('./sslcert/associacaoamica.org.crt'),
+  key: fs.readFileSync('./sslcert/associacaoamica.org_5ebdd5e21a865.key'),
+  ca: fs.readFileSync('./sslcert/intermediate-ca.crt')
+};;
 
 // Load model at mongoose
 Pet = require('./api/models/AdoptModel');
@@ -50,7 +59,7 @@ routesCompany(app);
 var routesAdmin = require('./api/routes/UserRoutes');
 routesAdmin(app);
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, pathClient)));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
@@ -61,6 +70,6 @@ app.use(function(req, res) {
 });
 
 // Listen to specified port
-app.listen(port);
+https.createServer(options, app).listen(port);
 
 console.log('Amica API server started on: ' + port);

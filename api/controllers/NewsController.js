@@ -7,7 +7,7 @@ News = mongoose.model('News'),
 Security = require('../security/security');
 
 exports.list_news = function(req, res) {
-    var query = News.find({status: true}, null, {limit: parseInt(req.query.quantity), sort: {'Created_Date': -1}});
+    var query = News.find({status: true, _id: { $ne: req.query.currentId }}, null, {limit: parseInt(req.query.quantity), sort: {'Created_Date': -1}});
     query.exec(function(err, news) {
         if (err)
             res.send(err);

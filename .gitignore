@@ -25,5 +25,6 @@ yarn-error.log*
 
 # package
 /dist
+/sslcert
 # compiled css
 *.css
