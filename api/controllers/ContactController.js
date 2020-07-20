@@ -33,13 +33,20 @@ exports.create_contact = function(req, res) {
             pass: process.env.PASS_MAIL // generated ethereal password
           }
         });
-
+ 
         let info = await transporter.sendMail({
           from: `"${process.env.FROM_NAME}" <${process.env.FROM_MAIL}>`, // sender address
           to: process.env.TO_MAIL, // list of receivers
           subject: `${contact.subject}`, // Subject line
-          text: `${contact.message}`, // plain text body
-          html: `<p>${contact.message}</p>` // html body
+          text: `Nome: ${contact.name}  Email: ${contact.mail} Telemóvel: ${contact.phone} Mensagem: ${contact.message}`, // plain text body
+          replyTo: `${contact.mail}`, // ReplyTo option
+          html: `
+          <div>
+            <p><b>Nome: </b> ${contact.name}</p>
+            <p><b>Email: </b> ${contact.mail}</p>
+            <p><b>Telemóvel: </b> ${contact.phone}</p>
+            <p><b>Mensagem: </b> ${contact.message}</p>
+          <div>` // html body
         });
 
         res.json(contact);

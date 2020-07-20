@@ -3,7 +3,11 @@ require('dotenv').config();
 const nodemailer = require("nodemailer"),
 mongoose = require('mongoose'),
 Partner = mongoose.model('Partner'),
-Security = require('../security/security');
+Security = require('../security/security'),
+PizZip = require('pizzip'),
+Docxtemplater = require('docxtemplater'),
+fs = require('fs'),
+path = require("path");
 
 exports.list_partners = function(req, res) {
   const login = Security.login_admin(req, res);
@@ -24,6 +28,45 @@ exports.create_partner = function(req, res) {
         if (err)
             res.send(err);
 
+        var content = fs.readFileSync(path.resolve(__dirname, 'templates/FichaSocio.docx'), 'binary');
+        var zip = new PizZip(content);
+        var doc;
+        try {
+            doc = new Docxtemplater(zip);
+        } catch(error) {
+            // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
+            errorHandler(error);
+        }
+
+        //set the templateVariables
+        doc.setData({
+          nome: partner.name,
+          morada: partner.address,
+          localicade: partner.city,
+          email: partner.mail,
+          telemovel: partner.phone,
+          codPostal: partner.postalCode,
+          profissao: partner.job,
+          contribuinte: partner.document,
+          dia: partner.birthday.getDate(),
+          mes: partner.birthday.getMonth() + 1,
+          ano: partner.birthday.getFullYear(),
+        });
+
+        try {
+          // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+          doc.render()
+        }
+        catch (error) {
+            // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
+            errorHandler(error);
+        }
+        
+        var buf = doc.getZip().generate({type: 'nodebuffer'});
+        
+        // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
+        //fs.writeFileSync(path.resolve(__dirname, 'output.docx'), buf);
+
         let transporter = nodemailer.createTransport({
           host: process.env.SMTP_HOST,
           port: process.env.SMTP_PORT,
@@ -42,7 +85,7 @@ exports.create_partner = function(req, res) {
           Documento: ${partner.document}, 
           Aniversário: ${partner.birthday.getDate()}/${partner.birthday.getMonth() + 1}/${partner.birthday.getFullYear()}, 
           Morada: ${partner.address}, 
-          LOcalidade: ${partner.city}, 
+          Localidade: ${partner.city}, 
           Código Postal: ${partner.postalCode}, 
           Email: ${partner.mail}, 
           Profissão: ${partner.job},
@@ -55,7 +98,11 @@ exports.create_partner = function(req, res) {
           <b>Código Postal:</b> ${partner.postalCode}  <br />
           <b>Email:</b> ${partner.mail}  <br />
           <b>Profissão:</b> ${partner.job} <br />
-          <b>Telefone:</b> ${partner.phone}</p>` // html body
+          <b>Telefone:</b> ${partner.phone}</p>`, // html body
+          attachments: [{   // binary buffer as an attachment
+            filename: `Socio_${partner.name.replace(/ /g,'')}.docx`,
+            content: buf
+        }]
         });
         
         res.json(partner);

@@ -28,6 +28,7 @@
     "babel-preset-react": "^6.24.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "docxtemplater": "^3.17.9",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-http-to-https": "^1.1.4",
@@ -35,6 +36,7 @@
     "mongoose": "^5.9.14",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.6",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pizzip": "^3.0.6"
   }
 }
